@@ -52,10 +52,3 @@
 ---
 
 ### Contributors:
-- Piotr [@piotrwitek](https://github.com/piotrwitek)
-- Seba [@PanRada](https://github.com/PanRada)
-- Bartosz [@migacz1125](https://github.com/migacz1125)
-
-### Todo
-- PouchDB as persistence layer for stores
-- editorconfig.org setup
