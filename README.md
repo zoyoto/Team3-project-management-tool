@@ -47,7 +47,7 @@
 ### Tips
 - local demo page: localhost:8888/dist
 - use JSPM beta -> `jspm@0.17.X`
-- if you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy``/->\\`
+- if you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
 
 ---
 
