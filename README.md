@@ -23,9 +23,10 @@
 ### Installation
 
 ##### 1. Clone repo
-    git clone https://github.com/piotrwitek/training-management-tool.git
+    git clone https://github.com/zoyoto/-training-management-tool.git
 
 ##### 2. Install all dependencies
+    npm i jspm@0.17.0-beta.22
     npm install
 
 ##### 3. Run development server and start developing
@@ -44,11 +45,11 @@
 - `npm run bd` - automatic build and deployment
 
 ### Tips
-- guide to sync fork (don't merge to keep a history clean): http://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository
 - local demo page: localhost:8888/dist
 - use JSPM beta -> `jspm@0.17.X`
-- follow BEM conventions: https://en.bem.info/methodology/naming-convention/
+- if you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy;/->\\`
 
 ---
 
 ### Contributors:
+ https://github.com/piotrwitek/training-management-tool
