@@ -27,7 +27,7 @@
 
 ##### 2. Install all dependencies
     npm i jspm@0.17.0-beta.22
-    npm install
+    `npm install` - May need VPN for some packages
 
 ##### 3. Run development server and start developing
     npm start
