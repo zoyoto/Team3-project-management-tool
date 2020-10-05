@@ -30,7 +30,7 @@
     npm install 
     
 ##### 3. Run development server and start developing
-    npm run bd
+    npm run build
     npm start
 
 ### NPM commands
