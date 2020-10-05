@@ -25,11 +25,12 @@
 ##### 1. Clone repo
     git clone https://github.com/zoyoto/-training-management-tool.git
 
-##### 2. Install all dependencies
+##### 2. Install all dependencies(May need VPN for some packages)
     npm i jspm@0.17.0-beta.22
-    `npm install` - May need VPN for some packages
-
+    npm install 
+    
 ##### 3. Run development server and start developing
+    npm run bd
     npm start
 
 ### NPM commands
@@ -47,7 +48,7 @@
 ### Tips
 - local demo page: localhost:8888/dist
 - use JSPM beta -> `jspm@0.17.X`
-- if you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
+- If you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
 
 ---
 
