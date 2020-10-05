@@ -46,9 +46,9 @@
 - `npm run bd` - automatic build and deployment
 
 ### Tips
-- local demo page: localhost:8888/dist
-- use JSPM beta -> `jspm@0.17.X`
-- If you use the Windows environment,please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
+- Local demo page: localhost:8888/dist
+- Use JSPM beta -> `jspm@0.17.X`
+- If you use the Windows environment, please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
 
 ---
 
