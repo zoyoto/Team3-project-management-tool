@@ -23,6 +23,7 @@ export class TrainingStore {
 
   uploadItem = (modelStr: any) => {
     if(modelStr==null || modelStr=='' || modelStr.length==0){
+      return;
     }
 
     let content = new String(modelStr);
