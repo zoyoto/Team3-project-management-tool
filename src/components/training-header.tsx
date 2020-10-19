@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
-import {TrainingStore, TrainingModel} from './training-store';
 
 interface IProps {
   onAdd: (title: string, description: string) => any;
+  onUpload: (modelStr: any) => any;
 }
 
 interface IState {
@@ -41,6 +41,22 @@ export class TrainingHeader extends React.Component<IProps, IState> {
     this.title = this.description = '';
   }
 
+  importFile = (event) => {
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsText(event.target.files[0]);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error);
+      }).then(
+        data => {
+          if(data!=null){
+            this.props.onUpload(data);
+          }
+        }
+    );
+  }
+  
+
   render() {
     let modalIsActiveClass = this.modalIsActive ? ' is-active' : '';
 
@@ -49,6 +65,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
         <p className="control">
           <button type="button" className="button is-primary is-large is-fullwidth"
             onClick={this.toggleModal}>Add New</button>
+          <input type="file" name="file" className="button is-primary is-large is-fullwidth" id="fileField" onChange={this.importFile}/>
         </p>
 
         <div className={'modal' + modalIsActiveClass}>

@@ -8,11 +8,14 @@ import * as ReactDOM from 'react-dom';
 
 // components imports
 import {TrainingStore, TrainingModel} from './components/training-store';
-import * as trs from './components/training-store';
 import {TrainingHeader} from './components/training-header';
 import {TrainingList} from './components/training-list';
 
-const initialState: TrainingModel[] = trs.initialState();
+const initialState: TrainingModel[] = [
+  new TrainingModel(0,'fake training 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
+  new TrainingModel(1,'fake training 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
+  new TrainingModel(2,'fake training 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.')
+];
 
 interface IState {
   trainingStore: TrainingStore;
@@ -33,10 +36,15 @@ export class App extends React.Component<{}, {}> {
     this.forceUpdate();
   }
 
+  handleUpload = (modelStr: any) => {
+    this.state.trainingStore.uploadItem(modelStr);
+    this.forceUpdate();
+  }
+
   render() {
     return (
       <div className="container">
-        <TrainingHeader onAdd={this.handleAdd} />
+        <TrainingHeader onAdd={this.handleAdd} onUpload={this.handleUpload} />
         <TrainingList store={this.state.trainingStore} onRemove={this.handleRemove} />
       </div>
     );
