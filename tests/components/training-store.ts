@@ -1,10 +1,7 @@
 import {TrainingStore, TrainingModel} from '../../src/components/training-store';
+import * as trs from '../../src/components/training-store';
 
-const initialState: TrainingModel[] = [
-  new TrainingModel('fake training 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
-  new TrainingModel('fake training 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
-  new TrainingModel('fake training 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.')
-];
+const initialState: TrainingModel[] = trs.initialState();
 const trainingStore = new TrainingStore(initialState);
 class AssertHelper {
     runned = 0;

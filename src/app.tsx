@@ -5,16 +5,14 @@ import './app.css!';
 // lib imports
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 // components imports
 import {TrainingStore, TrainingModel} from './components/training-store';
+import * as trs from './components/training-store';
 import {TrainingHeader} from './components/training-header';
 import {TrainingList} from './components/training-list';
 
-const initialState: TrainingModel[] = [
-  new TrainingModel('fake training 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
-  new TrainingModel('fake training 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.'),
-  new TrainingModel('fake training 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.')
-];
+const initialState: TrainingModel[] = trs.initialState();
 
 interface IState {
   trainingStore: TrainingStore;

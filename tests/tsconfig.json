@@ -29,7 +29,8 @@
   "files": [
     "components/training-store.ts",
     "run-tests.ts",
-    "../typings/index.d.ts"
+    "../typings/index.d.ts",
+    "../src/app-typings.d.ts"
   ],
   "atom": {
     "rewriteTsconfig": true,
@@ -49,5 +50,6 @@
     "placeOpenBraceOnNewLineForFunctions": false,
     "placeOpenBraceOnNewLineForControlBlocks": false
   },
-  "compileOnSave": false
+  "compileOnSave": false,
+  "moduleResolution": "node"
 }

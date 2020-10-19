@@ -69,6 +69,7 @@ SystemJS.config({
     "npm:*.json"
   ],
   map: {
+    "@types/fs-extra": "npm:@types/fs-extra@9.0.2",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
@@ -372,6 +373,11 @@ SystemJS.config({
         "string_decoder": "npm:string_decoder@0.10.31",
         "process-nextick-args": "npm:process-nextick-args@1.0.7",
         "buffer-shims": "npm:buffer-shims@1.0.0"
+      }
+    },
+    "npm:@types/fs-extra@9.0.2": {
+      "map": {
+        "@types/node": "npm:@types/node@14.11.10"
       }
     }
   }
