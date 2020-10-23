@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Time Table</title>
+
+	<!-- Bootstrap Link-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- Bootstrap scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+	<!-- Fonts Used-->
+	<link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Luckiest+Guy" rel="stylesheet">
+
+	<!-- External CSS -->
+	<link rel="stylesheet" type="text/css" href="wait.css">
+</head>
+<body>	
+		
+	<center>
+		
+			<header style="margin-right: 350px;font-size: 22px;font-family: 'Permanent Marker', cursive;margin-top: 10px;color:#080302e5;">
+					My Time Schedule
+				</header>
+
+	</center>
+
+	<br>
+
+	<div style="padding:20px;height: 820px; width:890px; background-color:#ffffff39;">
+	<div id="schedule" style="background-image: none; height: auto; background-color: rgb(216, 216, 216); transform: none;position:relative;">
+		<div id="weekDays" style="height: 29px; background-color: rgba(224, 216, 216, 0.966);">
+			<div id="leftScheduleCorner"></div>
+			<div class="weekDay" style="width:171.2px;"><p style="margin-left: 30px;">Monday</p></div>
+			<div class="weekDay" style="width:171.2px;"><p style="margin-left: 30px;">Tuesday</p></div>
+			<div class="weekDay" style="width:171.2px;"><p style="margin-left: 30px;">Wednesday</p></div>
+			<div class="weekDay" style="width:171.2px;"><p style="margin-left: 30px;">Thrusday</p></div>
+			<div class="weekDay" style="width:171.2px;"><p style="margin-left: 30px;">Friday</p></div>
+		</div>
+		<div id="hours" style="height: 750px; margin-top:29px; background-color:  rgba(224, 216, 216, 0.966);position: absolute;">
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">08 AM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">09 AM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">10 AM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">11 AM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">12 AM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">01 PM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">02 PM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">03 PM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">04 PM</p>
+				</div>
+			</div>
+			<div class="hour" style="height: 75px;">
+				<div class="hourText">
+				<p id="pHour" class="pHour">05 PM</p>
+				</div>
+			</div>
+		</div>
+		<div id="days" style="height: 750px; margin-left: 30px; font-size: 22px;background-color: transparent;font-family: 'Bangers', cursive;">
+			<div class="day" id="Monday" style="width: 171.2px;"></div>
+			<div class="day" id="Tuesday" style="width: 171.2px;"></div>
+			<div class="day" id="Wednesday" style="width: 171.2px;"></div>
+			<div class="day" id="Thrusday" style="width: 171.2px;"></div>
+			<div class="day" id="Friday" style="width: 171.2 x;"></div>
+		</div>
+	</div>
+	</div>
+	
+
+
+	<div class="modal fade" style="background: #00ff0039"id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      	<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Schedule!</h5>
+        	<button id="iclose"type="button" class="close" data-dismiss="modal" aria-label="Close">
+          		<span aria-hidden="true">&times;</span>
+        	</button>
+      	</div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+		    <label for="stime">Starting Time:</label>
+		    <select class="form-control" id="stime">
+		      <option value="0">08:00-08:59 AM</option>
+		      <option value="1">09:00-09:59 AM</option>
+		      <option value="2">10:00-10:59 AM</option>
+		      <option value="3">11:00-11:59 AM</option>
+		      <option value="4">12:00-12:59 PM</option>
+		      <option value="6">02:00-02:59 PM</option>
+		      <option value="7">03:00-03:59 PM</option>
+		      <option value="8">04:00-04:59PM</option>
+		      <option value="9">05:00-06:00 PM</option>
+		    </select>
+		  </div>	
+          <div class="form-group">
+		    <label for="time">Time Duration: </label>
+		    <select class="form-control" id="time">
+		      <option>1</option>
+		      <option>2</option>
+		      <option>3</option>
+		    </select>
+		  </div>
+          <div class="form-group">
+            <label for="venue" class="col-form-label">Venue:</label>
+            <input type="text" class="form-control" id="venue">
+          </div>
+          <div class="form-group">
+            <label for="courseCode" class="col-form-label">Schedule:</label>
+            <input type="text" class="form-control" id="course">
+          </div>
+          <div class="form-group">
+            <label for="c_color" class="col-form-label">Color Code:</label>
+            <input type="color" title="color code for course" class="form-control" id="c_color">
+          </div>
+          <div class="form-group">
+		    <label for="whichday">Day: </label>
+		    <select class="form-control" id="whichday">
+		      <option>Monday</option>
+		      <option>Tuesday</option>
+		      <option>Wednesday</option>
+		      <option>Thrusday</option>
+		      <option>Friday</option>
+		    </select>
+		  </div>
+          <div class="form-group">
+            <label for="faculty" class="col-form-label">Department:</label>
+            <input type="text" class="form-control" id="faculty">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="addme"class="btn btn-primary">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" style="background: #00ff0039"id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+      	<div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remove Schedule!</h5>
+        <button id="iiclose"type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+		    <label for="whichday1">Day: </label>
+		    <select class="form-control" id="whichday1">
+		      <option>Monday</option>
+		      <option>Tuesday</option>
+		      <option>Wednesday</option>
+		      <option>Thrusday</option>
+		      <option>Friday</option>
+		    </select>
+		  </div>
+          <div class="form-group">
+            <label for="element">Which One:</label>
+		    <select class="form-control" id="element">
+		      <option value="1">1</option>
+		      <option value="2">2</option>
+		      <option value="3">3</option>
+		      <option value="4">4</option>
+		      <option value="5">5</option>
+		      <option value="6">6</option>
+		      <option value="7">7</option>
+		      <option value="8">8</option>
+		      <option value="9">9</option>
+		    </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="remove"class="btn btn-primary">Remove</button>
+      </div>
+    </div>
+	</div>
+</div>
+<div style="padding-left:260px;padding-top:20px;">
+
+		<button id="Remove" type="button" class="btn btn-light btn-lg" style= "padding-left:30px;padding-right:30px;color:white;background-color:#7cb9e8 " data-toggle="modal" data-target="#exampleModal1">
+				Remove Schedule
+			</button>
+
+		<button type="button" class="btn btn-light btn-lg" style="background-color:#7cb9e8;color:white;margin-left: 50px;" data-toggle="modal" data-target="#exampleModal">
+			Add Schedule
+		</button>
+		
+	</div>
+
+        <script src="wait.js"></script>
+</body>
+</html>

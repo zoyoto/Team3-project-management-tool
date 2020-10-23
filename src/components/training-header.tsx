@@ -65,7 +65,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
         <p className="control">
           <button type="button" className="button is-primary is-large is-fullwidth"
             onClick={this.toggleModal}>Add New</button>
-          <input type="file" name="file" className="button is-primary is-large is-fullwidth" id="fileField" onChange={this.importFile}/>
+          <input type="file" name="file" className="button is-link" id="fileField" onChange={this.importFile}/>
         </p>
 
         <div className={'modal' + modalIsActiveClass}>
