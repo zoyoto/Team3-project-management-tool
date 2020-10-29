@@ -10,7 +10,7 @@
     "start": "node server.js",
     "postinstall": "npm run install-jspm && npm run install-typings && mkdir dist",
     "precommit": "",
-    "prepush": "npm test",
+    "prepush": "",
     "install-jspm": ".\\node_modules\\.bin\\jspm install",
     "install-typings": ".\\node_modules\\.bin\\typings install",
     "dev-bundle": ".\\node_modules\\.bin\\jspm bundle dev-bundle.ts dev-bundle.js -id",
