@@ -3,7 +3,7 @@ import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
 
 interface IProps {
-  onAdd: (title: string, description: string) => any;
+  onAdd: (title: string, description: string, poeple: string) => any;
   onUpload: (modelStr: any) => any;
 }
 
@@ -14,18 +14,23 @@ interface IState {
 export class TrainingHeader extends React.Component<IProps, IState> {
   @observable title: string = '';
   @observable description: string = '';
+  @observable people: string = '';
   @observable modalIsActive: boolean = false;
   @computed get addButtonIsDisabled() {
-    return this.title === '' || this.description === '';
+    return this.title === '' || this.description === '' || this.people === '';
   };
 
   handleAdd = () => {
-    this.props.onAdd(this.title, this.description);
+    this.props.onAdd(this.title, this.description, this.people);
     this.toggleModal();
   }
 
   handleChangeTitle = (event) => {
     this.title = event.target.value;
+  }
+
+  handleChangePeople = (event) => {
+    this.people = event.target.value;
   }
 
   handleChangeDescription = (event) => {
@@ -38,7 +43,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
   }
 
   resetForm = () => {
-    this.title = this.description = '';
+    this.title = this.description = this.people = '';
   }
 
   importFile = (event) => {
@@ -72,13 +77,18 @@ export class TrainingHeader extends React.Component<IProps, IState> {
           <div className="modal-background" onClick={this.toggleModal}></div>
           <div className="modal-card">
             <header className="modal-card-head">
-              <p className="modal-card-title">Modal title</p>
+              <p className="modal-card-title">Software Management Tool</p>
             </header>
             <section className="modal-card-body">
               <p className="control">
                 <label htmlFor="title" className="label">Title</label>
                 <input id="title" className="input" type="text"
                   value={this.title} onChange={this.handleChangeTitle} />
+              </p>
+              <p className="control">
+                <label htmlFor="people" className="label">People</label>
+                <input id="people" className="input" type="text"
+                  value={this.people} onChange={this.handleChangePeople} />
               </p>
               <p className="control">
                 <label htmlFor="description" className="label">Description</label>

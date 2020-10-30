@@ -20,6 +20,8 @@ export class TrainingItem extends React.Component<IProps, {}> {
   initDescriptionRef = (ref) => this.descriptionRef = ref;
   titleRef: HTMLInputElement;
   initTitleRef = (ref) => this.titleRef = ref;
+  peopleRef: HTMLInputElement;
+  initPeopleRef = (ref) => this.peopleRef = ref;
 
   handleRemove = (): void => {
     this.props.onRemove(this.props.data.uid);
@@ -30,13 +32,14 @@ export class TrainingItem extends React.Component<IProps, {}> {
   }
 
   handleSave = (): void => {
-    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
+    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value);
     this.setState({ isEditMode: false });
   }
 
   handleCancel = (): void => {
     this.titleRef.value = this.props.data.title;
     this.descriptionRef.value = this.props.data.description;
+    this.peopleRef.value = this.props.data.people;
     this.setState({ isEditMode: false });
   }
 
@@ -48,6 +51,12 @@ export class TrainingItem extends React.Component<IProps, {}> {
             <input ref={this.initTitleRef} type="text"
               className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
               defaultValue={this.props.data.title} readOnly={!this.state.isEditMode}
+              />
+          </p>
+          <p className="card-header-title">
+            <input ref={this.initPeopleRef} type="text"
+              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+              defaultValue={this.props.data.people} readOnly={!this.state.isEditMode}
               />
           </p>
         </header>
