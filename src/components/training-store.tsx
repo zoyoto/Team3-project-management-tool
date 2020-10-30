@@ -4,16 +4,17 @@ export class TrainingStore {
   }
   state: TrainingModel[];
 
-  addItem = (title: string, description: string) => {
-    let newItem = new TrainingModel(this.state.length++,title, description);
+  addItem = (title: string, description: string, people: string) => {
+    let newItem = new TrainingModel(this.state.length++, title, description, people);
     this.state.push(newItem);
   }
 
-  editItem = (uid: number, title: string, description: string) => {
+  editItem = (uid: number, title: string, description: string, people: string) => {
     let existingItem = this.state.find(item => item.uid === uid);
     if (existingItem == null) return;
     existingItem.title = title;
     existingItem.description = description;
+    existingItem.people = people;
   }
 
   removeItem = (uid: number) => {
@@ -51,9 +52,11 @@ export class TrainingModel {
   uid: number;
   title: string;
   description: string;
-  constructor(uid:number,title: string, description: string) {
+  people: string;
+  constructor(uid: number, title: string, description: string, people: string) {
     this.uid = uid;
     this.title = title;
     this.description = description;
+    this.people = people;
   }
 }
