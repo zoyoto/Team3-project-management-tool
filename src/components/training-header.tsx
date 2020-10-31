@@ -3,7 +3,7 @@ import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
 
 interface IProps {
-  onAdd: (title: string, description: string, poeple: string) => any;
+  onAdd: (title: string, description: string, poeple: string, budget: number) => any;
   onUpload: (modelStr: any) => any;
 }
 
@@ -15,13 +15,14 @@ export class TrainingHeader extends React.Component<IProps, IState> {
   @observable title: string = '';
   @observable description: string = '';
   @observable people: string = '';
+  @observable budget: number = 0;
   @observable modalIsActive: boolean = false;
   @computed get addButtonIsDisabled() {
-    return this.title === '' || this.description === '' || this.people === '';
+    return this.title === '' || this.description === '' || this.people === '' || this.budget === 0;
   };
 
   handleAdd = () => {
-    this.props.onAdd(this.title, this.description, this.people);
+    this.props.onAdd(this.title, this.description, this.people, this.budget);
     this.toggleModal();
   }
 
@@ -37,13 +38,18 @@ export class TrainingHeader extends React.Component<IProps, IState> {
     this.description = event.target.value;
   }
 
+  handleChangeBudget = (event) => {
+    this.budget = event.target.value;
+  }
+
   toggleModal = () => {
     this.modalIsActive = !this.modalIsActive;
     this.resetForm();
   }
 
   resetForm = () => {
-    this.title = this.description = this.people = '';
+    this.title = this.description = this.people  = '';
+    this.budget = 0;
   }
 
   importFile = (event) => {
@@ -94,6 +100,11 @@ export class TrainingHeader extends React.Component<IProps, IState> {
                 <label htmlFor="description" className="label">Description</label>
                 <textarea id="description" className="textarea"
                   value={this.description} onChange={this.handleChangeDescription}></textarea>
+              </p>
+              <p className="control">
+                <label htmlFor="budget" className="label">Budget</label>
+                <input id="budget" className="input" type="text"
+                  value={this.budget} onChange={this.handleChangeBudget} />
               </p>
             </section>
             <footer className="modal-card-foot">

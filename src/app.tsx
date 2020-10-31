@@ -12,9 +12,9 @@ import {TrainingHeader} from './components/training-header';
 import {TrainingList} from './components/training-list';
 
 const initialState: TrainingModel[] = [
-  new TrainingModel(0, 'Task 1', 'Create a new function.', 'Person 1'),
-  new TrainingModel(1, 'Task 2', 'Improve the performance.', 'Person 2'),
-  new TrainingModel(2, 'Task 3', 'Finish writing software documentation.', 'Person 3')
+  new TrainingModel(0, 'Design', 'Design a new function.', 'Person 1', '100'),
+  new TrainingModel(1, 'Development', 'Develop a new function.', 'Person 2', '200'),
+  new TrainingModel(2, 'Tests', 'Test a new function.', 'Person 3', '300')
 ];
 
 interface IState {
@@ -26,8 +26,8 @@ export class App extends React.Component<{}, {}> {
     trainingStore: new TrainingStore(initialState)
   };
 
-  handleAdd = (title: string, description: string, people: string) => {
-    this.state.trainingStore.addItem(title, description, people);
+  handleAdd = (title: string, description: string, people: string, budget: number) => {
+    this.state.trainingStore.addItem(title, description, people, budget);
     this.forceUpdate();
   }
 

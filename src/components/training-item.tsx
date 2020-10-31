@@ -22,6 +22,8 @@ export class TrainingItem extends React.Component<IProps, {}> {
   initTitleRef = (ref) => this.titleRef = ref;
   peopleRef: HTMLInputElement;
   initPeopleRef = (ref) => this.peopleRef = ref;
+  budgetRef: HTMLInputElement;
+  initBudgetRef = (ref) => this.budgetRef = ref;
 
   handleRemove = (): void => {
     this.props.onRemove(this.props.data.uid);
@@ -32,7 +34,7 @@ export class TrainingItem extends React.Component<IProps, {}> {
   }
 
   handleSave = (): void => {
-    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value);
+    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value, this.budgetRef.value);
     this.setState({ isEditMode: false });
   }
 
@@ -40,6 +42,7 @@ export class TrainingItem extends React.Component<IProps, {}> {
     this.titleRef.value = this.props.data.title;
     this.descriptionRef.value = this.props.data.description;
     this.peopleRef.value = this.props.data.people;
+    this.budgetRef.value = this.props.data.budget;
     this.setState({ isEditMode: false });
   }
 
@@ -65,6 +68,12 @@ export class TrainingItem extends React.Component<IProps, {}> {
             <textarea ref={this.initDescriptionRef}
               className={'textarea editable ' + (this.state.isEditMode ? '' : 'readonly') }
               defaultValue={this.props.data.description} readOnly={!this.state.isEditMode}
+              />
+          </p>
+          <p className="card-header-title">
+            Budget: <input ref={this.initBudgetRef} type="text"
+              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+              defaultValue={this.props.data.budget} readOnly={!this.state.isEditMode}
               />
           </p>
         </section>
