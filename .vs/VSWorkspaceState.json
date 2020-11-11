@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\api",
+    "\\api\\public",
+    "\\api\\public\\images",
+    "\\api\\public\\stylesheets",
+    "\\api\\routes",
+    "\\api\\views",
+    "\\public",
+    "\\src",
+    "\\src\\components"
+  ],
+  "SelectedNode": "\\src\\components\\training-item.tsx",
+  "PreviewInSolutionExplorer": false
+}

@@ -5,6 +5,9 @@ interface IProps {
   data: TrainingModel;
   onRemove: any;
   onEdit: any;
+
+  layoutStatus: number;
+  phaseStatus: number;
 }
 
 interface IState {
@@ -20,14 +23,6 @@ export class TrainingItem extends React.Component<IProps, {}> {
   initDescriptionRef = (ref) => this.descriptionRef = ref;
   titleRef: HTMLInputElement;
   initTitleRef = (ref) => this.titleRef = ref;
-  peopleRef: HTMLInputElement;
-  initPeopleRef = (ref) => this.peopleRef = ref;
-  budgetRef: HTMLInputElement;
-  initBudgetRef = (ref) => this.budgetRef = ref;
-  durationRef: HTMLInputElement;
-  initDurationRef = (ref) => this.durationRef = ref;
-  predecessorRef: HTMLInputElement;
-  initPredecessorRef = (ref) => this.predecessorRef = ref;
 
   handleRemove = (): void => {
     this.props.onRemove(this.props.data.uid);
@@ -38,76 +33,114 @@ export class TrainingItem extends React.Component<IProps, {}> {
   }
 
   handleSave = (): void => {
-    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value, this.budgetRef.value, this.durationRef.value, this.predecessorRef.value);
+    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
     this.setState({ isEditMode: false });
   }
 
   handleCancel = (): void => {
     this.titleRef.value = this.props.data.title;
     this.descriptionRef.value = this.props.data.description;
-    this.peopleRef.value = this.props.data.people;
-    this.budgetRef.value = this.props.data.budget;
-    this.durationRef.value = this.props.data.duration;
-    this.predecessorRef.value = this.props.data.predecessor;
     this.setState({ isEditMode: false });
   }
 
+  handleChangeToToDo = (): void => {
+  
+  }
+
+  handleChangeToInProgress = (): void => {
+  
+  }
+
+  handleChangeToDone = (): void => {
+  
+  }
+
   render() {
-    return <div className="column is-half-tablet is-one-third-desktop">
-      <div className="card is-fullwidth">
-        <header className="card-header">
-          <p className="card-header-title">
-            <input ref={this.initTitleRef} type="text"
-              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.title} readOnly={!this.state.isEditMode}
-              />
-          </p>
-          <p className="card-header-title">
-            <input ref={this.initPeopleRef} type="text"
-              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.people} readOnly={!this.state.isEditMode}
-              />
-          </p>
-        </header>
-        <section class="card-content">
-          <p className="card-header-title">
-            <textarea ref={this.initDescriptionRef}
-              className={'textarea editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.description} readOnly={!this.state.isEditMode}
-              />
-          </p>
-          <p className="card-header-title">
-            Duration(days): <input ref={this.initDurationRef} type="text"
-              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.duration} readOnly={!this.state.isEditMode}
-              />
-          </p>
-          <p className="card-header-title">
-            Budget($): <input ref={this.initBudgetRef} type="text"
-              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.budget} readOnly={!this.state.isEditMode}
-              />
-          </p>
-          <p className="card-header-title">
-            Predecessor: <input ref={this.initPredecessorRef} type="text"
-              className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
-              defaultValue={this.props.data.predecessor} readOnly={!this.state.isEditMode}
-              />
-          </p>
-        </section>
-        <footer className="card-footer">
-          <div className="card-footer-item">
-            <a className="button is-primary is-fullwidth"
-              onClick={this.state.isEditMode ? this.handleSave : this.handleEdit}
-              >{this.state.isEditMode ? 'Save' : 'Edit'}</a>
-          </div>
-          <div className="card-footer-item">
-            <a className="button is-danger is-fullwidth"
-              onClick={this.state.isEditMode ? this.handleCancel : this.handleRemove}
-              >{this.state.isEditMode ? 'Cancel' : 'Remove'}</a>
-          </div>
-        </footer>
-      </div>
-    </div>;
+
+    let itemStatus = this.props.data.itemStatus;
+
+    return (
+      <div className="">
+        {(()=> {
+          if (this.props.phaseStatus == itemStatus) {
+            return (
+              <div className="column">
+                <div className="card is-fullwidth">
+                  <header className="card-header">
+                    <p className="card-header-title">
+                      <input ref={this.initTitleRef} type="text"
+                        className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                        defaultValue={this.props.data.title} readOnly={!this.state.isEditMode}
+                      />
+                    </p>
+                  </header>
+
+                  <section className="card-content">
+                    <p className="card-header-title">
+                      <textarea ref={this.initDescriptionRef}
+                        className={'textarea editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                        defaultValue={this.props.data.description} readOnly={!this.state.isEditMode}
+                      />
+                    </p>
+		
+                
+                     
+                     {(()=> { 
+                         if(this.props.layoutStatus == 0) {
+                            return (
+                                <footer className="card-footer">
+                                    <div className="card-footer-item">
+                                        <a className="button is-primary is-fullwidth" onClick={this.state.isEditMode ? this.handleSave : this.handleEdit} >{this.state.isEditMode ? 'Save' : 'Edit'}</a>
+                                    </div>
+                            
+                                    <div className="card-footer-item">
+                                         <a className="button is-danger is-fullwidth" onClick={this.state.isEditMode ? this.handleCancel : this.handleRemove}>{this.state.isEditMode ? 'Cancel' : 'Remove'}</a>
+                                    </div>
+                                </footer>
+                            );
+                        } else if(this.props.layoutStatus == 1) {
+                            return (
+                                <footer className="card-footer">
+                                    <div className="card-footer-item">
+                                        <a className="button is-warning is-fullwidth" onClick={this.handleChangeToInProgress}>In Progress?</a>
+                                    </div>
+                                </footer>
+                            );
+                        } else if(this.props.layoutStatus == 2) {
+                            return (
+                                <footer className="card-footer">
+                                    <div className="card-footer-item">
+                                        <a className="button is-danger is-fullwidth" onClick={this.handleChangeToToDo}>To Do?</a>
+                                    </div>
+                            
+                                    <div className="card-footer-item">
+                                        <a className="button is-success is-fullwidth" onClick={this.handleChangeToDone}>Done?</a>
+                                    </div>
+                                </footer>
+                            );
+
+                        } else if(this.props.layoutStatus == 3) {
+                            return (
+                                <footer className="card-footer">
+                                    <div className="card-footer-item">
+                                        <a className="button is-warning is-fullwidth"onClick={this.handleChangeToInProgress}>In Progress?</a>
+                                    </div>                          
+                                </footer>
+                            );
+                        }
+                      })()}
+                        
+                      
+                   
+                  </section>
+                </div>
+              </div>
+            )
+          } else {
+            return null;
+          }
+        })()}
+       </div>
+    )
   }
 };

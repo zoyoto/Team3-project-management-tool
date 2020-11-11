@@ -1,56 +1,70 @@
-# Training Management Tool
-##### Dev Workshop Project
-### Demo: http://piotrwitek.github.io/training-management-tool/
+# Getting Started with Create React App
 
-### Features:
-- using ES2016 (generators/async/await) then transpiled to ES5 cross-browser compatible code
-- development server with hot-reload for quick development loop
-- static dev-bundle for quick full-page reload
-- automatic build of optimized production package and deployment: `npm run bd`
-- unit test with simple test runner in TypeScript
-- typescript node support using ts-node
-- git hooks running linter before commit and tests before push
-- editorconfig and tslint as code linter
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Stack:
-- TypeScript - v1.8.10
-- React - v15.1.0
-- MobX - v2.3.1 / mobx-react
-- JSPM (0.17.X) / SystemJS / systemjs-hot-reloader
+## Available Scripts
 
----
+In the project directory, you can run:
 
-### Installation
+### `npm start`
 
-##### 1. Clone repo
-    git clone https://github.com/zoyoto/-training-management-tool.git
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-##### 2. Install all dependencies(May need VPN for some packages)
-    npm i jspm@0.17.0-beta.22
-    npm install 
-    
-##### 3. Run development server and start developing
-    npm run build
-    npm start
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### NPM commands
-- `npm start` - run local development server with hot-reloader at localhost:8888
-- `npm test` - run tests
-- `npm run lint` - run code linter
-- `npm run dev-bundle` - build & inject dev-bundle with all dependencies to index.html for faster page reload
-- `npm run dev-unbundle` - remove injected dev-bundle
-- `npm run build` - build production deployment package (minified)
-- `npm run build-debug` - build debug deployment package (source maps)
-- `npm run init-deploy` - init deployment repository
-- `npm run deploy` - commit to deployment repository & push to remote
-- `npm run bd` - automatic build and deployment
+### `npm test`
 
-### Tips
-- Local demo page: localhost:8888/dist
-- Use JSPM beta -> `jspm@0.17.X`
-- If you use the Windows environment, please modify Linux command and path to Windows command and path format in package.json -> `cp->copy`;`/->\\`
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
----
+### `npm run build`
 
-### Contributors:
- https://github.com/piotrwitek/training-management-tool
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

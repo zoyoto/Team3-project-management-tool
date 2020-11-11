@@ -1,10 +1,162 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 html {
-  background: #e9e9e9;
+    background: #e9e9e9;
 }
+
 .readonly, .readonly:hover, .readonly:focus {
-  border: 1px solid transparent;
-  text-overflow: ellipsis;
+    border: 1px solid transparent;
+    text-overflow: ellipsis;
 }
+
 .editable {
-  resize: none;
+    resize: none;
 }
+
+.menu {
+    display: inline-block;
+}
+
+    .menu button {
+        width: 200px;
+        height: 50px;
+        background-color: grey;
+    }
+
+.ToDo {
+    /*background-color: red;*/
+}
+
+.InProgress {
+    /*background-color: orange;*/
+}
+
+.Done {
+    /*background-color: green;*/
+}
+
+h1 {
+    font-size: 24px;
+    font-style: bold;
+    color: black;
+    padding-left: 10px;
+}
+
+.phase-column-to-do {
+    float: left;
+    width: 33.33%;
+}
+
+    .phase-column-to-do p {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+    }
+
+.phase-column-in-progress {
+    float: left;
+    width: 33.33%;
+    border-left: dotted;
+    border-right: dotted;
+}
+
+    .phase-column-in-progress p {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+    }
+
+.phase-column-done {
+    float: left;
+    width: 33.33%;
+}
+
+    .phase-column-done p {
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+    }
+
+
+.phase-column-card-to-do {
+    float: left;
+    width: 33.33%;
+}
+
+.phase-column-card-in-progress {
+    float: left;
+    width: 33.33%;
+    border-left: dotted;
+    border-right: dotted;
+}
+
+.phase-column-card-done {
+    float: left;
+    width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.phase-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.phase-row {
+    border-bottom: dotted;
+}
+
+.phase-row-card:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.phase-header {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+

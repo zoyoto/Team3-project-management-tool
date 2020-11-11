@@ -4,68 +4,38 @@ export class TrainingStore {
   }
   state: TrainingModel[];
 
-  addItem = (title: string, description: string, people: string, budget: number, duration: number, predecessor: string) => {
-    let newItem = new TrainingModel(this.state.length++, title, description, people, budget, duration, predecessor);
+  addItem = (title: string, description: string, phaseStatus: number) => {
+    let newItem = new TrainingModel(title, description, phaseStatus);
+
     this.state.push(newItem);
   }
-
-  editItem = (uid: number, title: string, description: string, people: string, budget: number, duration: number, predecessor: string) => {
+      
+  editItem = (uid: number, title: string, description: string) => {
     let existingItem = this.state.find(item => item.uid === uid);
     if (existingItem == null) return;
+
     existingItem.title = title;
     existingItem.description = description;
-    existingItem.people = people;
-    existingItem.budget = budget;
-    existingItem.duration = duration;
-    existingItem.predecessor = predecessor;
   }
 
   removeItem = (uid: number) => {
     let newState = this.state.filter((item) => item.uid !== uid);
+
     this.state = newState;
-  }
-
-  uploadItem = (modelStr: any) => {
-    if(modelStr==null || modelStr=='' || modelStr.length==0){
-      return;
-    }
-
-    let content = new String(modelStr);
-    let sp: string[] = content.split("\n");
-    if (sp.length > 1) {
-      for (let i: number = 0; i < sp.length; i++) {
-        let text: string = sp[i];
-        console.log(text);
-        if (text && text.length > 0) {
-          try{
-            var model = JSON.parse(text);
-            console.log("model"+model);
-            model.uid = this.state.length++;
-            this.state.push(model);
-          }catch (err) {
-            console.log(err);
-          }
-        }
-      }
-    }
   }
 }
 
+let uidIterator = 0;
+
 export class TrainingModel {
-  uid: number;
+  uid: number = uidIterator++;
   title: string;
   description: string;
-  people: string;
-  budget: number;
-  duration: number;
-  predecessor: string;
-  constructor(uid: number, title: string, description: string, people: string, budget: number, duration: number, predecessor: string) {
-    this.uid = uid;
+  itemStatus: number;
+
+  constructor(title: string, description: string, itemStatus: number) {
     this.title = title;
     this.description = description;
-    this.people = people;
-    this.budget = budget;
-    this.duration = duration;
-    this.predecessor = predecessor;
+    this.itemStatus = itemStatus;
   }
 }
