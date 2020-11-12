@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const MongoDB = require('mongodb');
 const MongoClient = require('mongodb').MongoClient;
 
 const uri = "mongodb+srv://YYW:cs5351@cluster0.ivteu.mongodb.net/SEProject?retryWrites=true&w=majority";
@@ -50,7 +51,7 @@ router.get("/read/cards", (req, res) => {
 });
 
 
-// Add Cards
+// Create Cards
 router.post("/create/card", (req, res) => {
 	let title = req.body.title;
 	let description = req.body.description;
@@ -60,6 +61,16 @@ router.post("/create/card", (req, res) => {
 	//dbCollection.findOne({"phaseStatus": 1}, (err, result) => {
 		if(err) throw error;
 		res.json(result["ops"][0]);
+	});
+});
+
+// Delete Card
+router.post("/delete/card", (req, res) => {
+	let uid = req.body.uid;
+	dbCollection = dbObject.collection("cards");
+	dbCollection.deleteOne({_id: new MongoDB.ObjectId(uid)}, (err, result) => {
+		if(err) throw error;
+		res.json({_id: uid});
 	});
 });
 

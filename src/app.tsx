@@ -44,8 +44,9 @@ class App extends React.Component<{}, {}> {
     }
 
     handleRemove = (uid: string) => {
-        this.state.trainingStore.removeItem(uid);
-        this.forceUpdate();
+        //this.state.trainingStore.removeItem(uid);
+        deleteCard(uid);
+        //this.forceUpdate();
     }
 
   
@@ -239,6 +240,50 @@ function createCard(title: string, description: string, phaseStatus: number) {
         let jsonData = JSON.parse(data);
             app.state.trainingStore.addItem(jsonData["_id"], jsonData["title"], jsonData["description"], 1);
             app.forceUpdate();
+		});
+	});
+
+    req.on('error', (err) => {
+        console.log("error: ", err);
+    });
+
+    req.write(postData);
+    req.end();
+}
+
+// Delete Card
+function deleteCard(uid: string) {
+
+    console.log("### Delete Card ###");
+
+    const postData = querystring.stringify({
+        'uid': uid
+	});
+     
+    const options = {
+        hostname: hostname,
+        port: port,
+        path: '/db/delete/card',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(postData)
+		}
+	};
+   
+    const req = http.request(options, (res) => {
+        res.setEncoding('utf8');
+
+        let data = "";
+        res.on('data', (chunk) => {
+            data += chunk;
+		});
+
+        res.on('end', () => {
+
+        let jsonData = JSON.parse(data);
+            app.state.trainingStore.removeItem(uid);
+            app.forceUpdate(); 
 		});
 	});
 
