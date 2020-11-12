@@ -9,20 +9,8 @@ import {TrainingStore, TrainingModel} from './components/training-store';
 import {TrainingHeader} from './components/training-header';
 import {TrainingList} from './components/training-list';
 
-const initialState: TrainingModel[] = [
-  /*new TrainingModel('fake training 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 1),
-  new TrainingModel('fake training 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 2),
-  new TrainingModel('fake training 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 3),
-  new TrainingModel('fake training 4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 1),
-  new TrainingModel('fake training 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 2),
-  new TrainingModel('fake training 6', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 3),
-  new TrainingModel('fake training 7', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 1),
-  new TrainingModel('fake training 8', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 2),
-  new TrainingModel('fake training 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 3),
-  new TrainingModel('fake training 0', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.', 1),
-*/];
+const initialState: TrainingModel[] = [];
 
-const serverURL = "http://localhost:9000/db/";
 const http = require("http");
 const querystring = require('querystring');
 
@@ -50,12 +38,12 @@ class App extends React.Component<{}, {}> {
     };
 
     handleAdd = (title: string, description: string) => {
-        this.state.trainingStore.addItem(title, description, 1);
+        //this.state.trainingStore.addItem("Xxx", title, description, 1);
         createCard(title, description, 1);
-        this.forceUpdate();
+        //this.forceUpdate();
     }
 
-    handleRemove = (uid: number) => {
+    handleRemove = (uid: string) => {
         this.state.trainingStore.removeItem(uid);
         this.forceUpdate();
     }
@@ -173,29 +161,6 @@ class App extends React.Component<{}, {}> {
 function readCards() {
 
     console.log("### Read Cards ###");
-
-    /*let url = serverURL + "read/cards";
-     
-    http.get(url, function(res){
-    
-        var data = '';
-
-        res.on('data', function(chunk){
-            data += chunk;
-        });
-        
-        res.on('end', function(){
-        
-            cards = JSON.parse(data);
-
-            // Add Card to Store
-            addStore();
-            app.forceUpdate();
-        });
-
-    }).on('error', function(e){
-        console.log("error: ", e);
-    });      */
     
     const options = {
      hostname: hostname,
@@ -205,7 +170,7 @@ function readCards() {
 	}
 
     const req = http.request(options, res => {
-        var data = '';
+        let data = '';
 
         res.on('data', function(chunk){
             data += chunk;
@@ -234,8 +199,8 @@ function addStore() {
     console.log("### Add to Store ###");
 
     for(const i in cards) {
-        initialState.push(new TrainingModel(cards[i]["title"], cards[i]["description"], cards[i]["phaseStatus"]));
-	}
+        initialState.push(new TrainingModel(cards[i]["_id"], cards[i]["title"], cards[i]["description"], cards[i]["phaseStatus"]));
+    }
 }
 
 // Create Card
@@ -263,12 +228,17 @@ function createCard(title: string, description: string, phaseStatus: number) {
     const req = http.request(options, (res) => {
         res.setEncoding('utf8');
 
+        let data = "";
         res.on('data', (chunk) => {
             //console.log("data " + chunk);
+            data += chunk;
 		});
 
         res.on('end', () => {
 
+        let jsonData = JSON.parse(data);
+            app.state.trainingStore.addItem(jsonData["_id"], jsonData["title"], jsonData["description"], 1);
+            app.forceUpdate();
 		});
 	});
 

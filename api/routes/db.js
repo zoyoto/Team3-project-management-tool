@@ -59,6 +59,7 @@ router.post("/create/card", (req, res) => {
 	dbCollection.insert({phaseStatus: 1, title: title, description: description}, (err, result) => {
 	//dbCollection.findOne({"phaseStatus": 1}, (err, result) => {
 		if(err) throw error;
+		res.json(result["ops"][0]);
 	});
 });
 
