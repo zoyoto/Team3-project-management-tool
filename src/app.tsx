@@ -16,6 +16,7 @@ const querystring = require('querystring');
 
 let app;
 
+
 const hostname = "localhost";
 const port = 9000;
 
@@ -36,6 +37,10 @@ class App extends React.Component<{}, {}> {
     state: IState = {
         trainingStore: new TrainingStore(initialState)
     };
+
+    handleForceUpdate = () => {
+        this.forceUpdate();
+    }
 
     handleAdd = (title: string, description: string) => {
         //this.state.trainingStore.addItem("Xxx", title, description, 1);
@@ -74,7 +79,6 @@ class App extends React.Component<{}, {}> {
 
     // Render
     render() {
-   
         return (
 
             <div className="App">
@@ -101,15 +105,15 @@ class App extends React.Component<{}, {}> {
                         </div>
                         <div className="phase-row-card">
                             <div className="phase-column-card-to-do">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} />
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                             </div>
 
                             <div className="phase-column-card-in-progress">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} />
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                             </div>
 
                             <div className="phase-column-card-done">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} />
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                             </div>
 
                         </div>
@@ -123,7 +127,7 @@ class App extends React.Component<{}, {}> {
                     return (
                         <div className="ToDo">
                         <p className="phase-header">TO DO</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} />
+                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                         <br /><br />
                         </div>
                     );
@@ -135,7 +139,7 @@ class App extends React.Component<{}, {}> {
                     return (
                         <div className="InProgress">
                         <p className="phase-header">IN PROGRESS</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} />
+                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                         <br /><br />
                         </div>
                     );
@@ -147,7 +151,7 @@ class App extends React.Component<{}, {}> {
                     return (
                         <div className="Done">
                         <p className="phase-header">DONE</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} />
+                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
                         <br /><br />
                         </div>
                     )
@@ -162,7 +166,8 @@ class App extends React.Component<{}, {}> {
 function readCards() {
 
     console.log("### Read Cards ###");
-    
+
+
     const options = {
      hostname: hostname,
      port: port,
@@ -294,6 +299,7 @@ function deleteCard(uid: string) {
     req.write(postData);
     req.end();
 }
+
 
 readCards();
 

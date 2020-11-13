@@ -2,15 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\api",
-    "\\api\\public",
     "\\api\\public\\images",
     "\\api\\public\\stylesheets",
-    "\\api\\routes",
-    "\\api\\views",
-    "\\public",
     "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\api\\routes\\db.js",
+  "SelectedNode": "\\src\\react-app-env.d.ts",
   "PreviewInSolutionExplorer": false
 }

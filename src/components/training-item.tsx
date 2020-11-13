@@ -1,10 +1,20 @@
 import * as React from 'react';
 import {TrainingStore, TrainingModel} from './training-store';
 
+const http = require("http");
+const querystring = require('querystring');
+
+const hostname = "localhost";
+const port = 9000;
+
+let component;
+
 interface IProps {
   data: TrainingModel;
   onRemove: any;
   onEdit: any;
+
+  onForceUpdate: any;
 
   layoutStatus: number;
   phaseStatus: number;
@@ -15,14 +25,28 @@ interface IState {
 }
 
 export class TrainingItem extends React.Component<IProps, {}> {
+
+  constructor(props) {
+    super(props);
+    component = this;
+  }
+
   state: IState = {
     isEditMode: false
   };
+
 
   descriptionRef: HTMLTextAreaElement;
   initDescriptionRef = (ref) => this.descriptionRef = ref;
   titleRef: HTMLInputElement;
   initTitleRef = (ref) => this.titleRef = ref;
+
+  handleForceUpdate = (uid: string, phaseStatus: number) => {
+
+    this.forceUpdate();
+    this.props.onForceUpdate();
+
+  }
 
   handleRemove = (): void => {
     this.props.onRemove(this.props.data.uid);
@@ -34,6 +58,9 @@ export class TrainingItem extends React.Component<IProps, {}> {
 
   handleSave = (): void => {
     this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
+
+    updateCard(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
+
     this.setState({ isEditMode: false });
   }
 
@@ -44,21 +71,22 @@ export class TrainingItem extends React.Component<IProps, {}> {
   }
 
   handleChangeToToDo = (): void => {
-  
+    this.props.data.itemStatus = 1;
+    updateCardPhase(this.props.data.uid, 1);
   }
 
   handleChangeToInProgress = (): void => {
-  
+    this.props.data.itemStatus = 2;
+    updateCardPhase(this.props.data.uid, 2);
   }
 
   handleChangeToDone = (): void => {
-  
+    this.props.data.itemStatus = 3;
+    updateCardPhase(this.props.data.uid, 3);
   }
 
   render() {
-
     let itemStatus = this.props.data.itemStatus;
-
     return (
       <div className="">
         {(()=> {
@@ -144,3 +172,93 @@ export class TrainingItem extends React.Component<IProps, {}> {
     )
   }
 };
+
+
+// Update Card
+function updateCard(uid: string, title: string, description: string) {
+
+    console.log("### Update Card ###");
+
+    const postData = querystring.stringify({
+        'uid': uid,
+        'title': title,
+        'description': description
+	});
+     
+    const options = {
+        hostname: hostname,
+        port: port,
+        path: '/db/update/card',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(postData)
+		}
+	};
+   
+    const req = http.request(options, (res) => {
+        res.setEncoding('utf8');
+
+        let data = "";
+        res.on('data', (chunk) => {
+            data += chunk;
+		});
+
+        res.on('end', () => {
+
+        let jsonData = JSON.parse(data);
+            //component.handleForceUpdate();
+		});
+	});
+
+    req.on('error', (err) => {
+        console.log("error: ", err);
+    });
+
+    req.write(postData);
+    req.end();
+}
+
+// Update Card Phase
+function updateCardPhase(uid: string, phaseStatus:number) {
+
+    console.log("### Update Card Phase ###");
+
+    const postData = querystring.stringify({
+        'uid': uid,
+        'phaseStatus': phaseStatus
+	});
+     
+    const options = {
+        hostname: hostname,
+        port: port,
+        path: '/db/update/card_phase',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(postData)
+		}
+	};
+   
+    const req = http.request(options, (res) => {
+        res.setEncoding('utf8');
+
+        let data = "";
+        res.on('data', (chunk) => {
+            data += chunk;
+		});
+
+        res.on('end', () => {
+
+        let jsonData = JSON.parse(data);
+            component.handleForceUpdate(jsonData["_id"], jsonData["phaseStatus"]);
+		});
+	});
+
+    req.on('error', (err) => {
+        console.log("error: ", err);
+    });
+
+    req.write(postData);
+    req.end();
+}

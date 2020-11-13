@@ -67,10 +67,42 @@ router.post("/create/card", (req, res) => {
 // Delete Card
 router.post("/delete/card", (req, res) => {
 	let uid = req.body.uid;
+
 	dbCollection = dbObject.collection("cards");
 	dbCollection.deleteOne({_id: new MongoDB.ObjectId(uid)}, (err, result) => {
 		if(err) throw error;
 		res.json({_id: uid});
+	});
+});
+
+// Update Card
+router.post("/update/card", (req, res) => {
+	let uid = req.body.uid;
+	let title = req.body.title;
+	let description = req.body.description;
+
+	dbCollection = dbObject.collection("cards");
+	dbCollection.updateOne(
+		{_id: new MongoDB.ObjectId(uid)},
+		{$set:{title: title, description:description}},
+	(err, result) => {
+		if(err) throw error;
+		res.json({_id: uid});
+	});
+});
+
+// Update Card Phase
+router.post("/update/card_phase", (req, res) => {
+	let uid = req.body.uid;
+	let phaseStatus = req.body.phaseStatus;
+
+	dbCollection = dbObject.collection("cards");
+	dbCollection.updateOne(
+		{_id: new MongoDB.ObjectId(uid)},
+		{$set:{phaseStatus: phaseStatus}},
+	(err, result) => {
+			if(err) throw error;
+		res.json({_id: uid, phaseStatus: phaseStatus});
 	});
 });
 
