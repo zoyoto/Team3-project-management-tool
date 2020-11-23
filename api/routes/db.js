@@ -55,9 +55,13 @@ router.get("/read/cards", (req, res) => {
 router.post("/create/card", (req, res) => {
 	let title = req.body.title;
 	let description = req.body.description;
+	let people = req.body.people;
+    let budget = req.body.budget;
+    let duration = req.body.duration;
+    let predecessor = req.body.predecessor;
 
 	dbCollection = dbObject.collection("cards");
-	dbCollection.insert({phaseStatus: 1, title: title, description: description}, (err, result) => {
+	dbCollection.insert({phaseStatus: 1, title: title, description: description, people:people, budget:budget, duration:duration, predecessor:predecessor}, (err, result) => {
 	//dbCollection.findOne({"phaseStatus": 1}, (err, result) => {
 		if(err) throw error;
 		res.json(result["ops"][0]);
@@ -80,11 +84,15 @@ router.post("/update/card", (req, res) => {
 	let uid = req.body.uid;
 	let title = req.body.title;
 	let description = req.body.description;
+	let people = req.body.people;
+    let budget = req.body.budget;
+    let duration = req.body.duration;
+    let predecessor = req.body.predecessor;
 
 	dbCollection = dbObject.collection("cards");
 	dbCollection.updateOne(
 		{_id: new MongoDB.ObjectId(uid)},
-		{$set:{title: title, description:description}},
+		{$set:{title: title, description:description, people:people, budget:budget, duration:duration, predecessor:predecessor}},
 	(err, result) => {
 		if(err) throw error;
 		res.json({_id: uid});
