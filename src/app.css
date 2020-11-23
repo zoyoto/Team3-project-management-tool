@@ -120,19 +120,16 @@ h1 {
 
 .phase-column-card-to-do {
     float: left;
-    width: 33.33%;
 }
 
 .phase-column-card-in-progress {
     float: left;
-    width: 33.33%;
     border-left: dotted;
     border-right: dotted;
 }
 
 .phase-column-card-done {
     float: left;
-    width: 33.33%;
 }
 
 /* Clear floats after the columns */

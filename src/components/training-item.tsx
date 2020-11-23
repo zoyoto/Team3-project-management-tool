@@ -38,8 +38,22 @@ export class TrainingItem extends React.Component<IProps, {}> {
 
   descriptionRef: HTMLTextAreaElement;
   initDescriptionRef = (ref) => this.descriptionRef = ref;
+
   titleRef: HTMLInputElement;
   initTitleRef = (ref) => this.titleRef = ref;
+
+  peopleRef: HTMLInputElement;
+  initPeopleRef = (ref) => this.peopleRef = ref;
+
+  budgetRef: HTMLInputElement;
+  initBudgetRef = (ref) => this.budgetRef = ref;
+
+  durationRef: HTMLInputElement;
+  initDurationRef = (ref) => this.durationRef = ref;
+
+  predecessorRef: HTMLInputElement;
+  initPredecessorRef = (ref) => this.predecessorRef = ref;
+
 
   handleForceUpdate = (uid: string, phaseStatus: number) => {
 
@@ -57,9 +71,9 @@ export class TrainingItem extends React.Component<IProps, {}> {
   }
 
   handleSave = (): void => {
-    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
 
-    updateCard(this.props.data.uid, this.titleRef.value, this.descriptionRef.value);
+    this.props.onEdit(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value, Number(this.budgetRef.value), Number(this.durationRef.value), this.predecessorRef.value);
+    updateCard(this.props.data.uid, this.titleRef.value, this.descriptionRef.value, this.peopleRef.value, Number(this.budgetRef.value), Number(this.durationRef.value), this.predecessorRef.value);
 
     this.setState({ isEditMode: false });
   }
@@ -67,6 +81,10 @@ export class TrainingItem extends React.Component<IProps, {}> {
   handleCancel = (): void => {
     this.titleRef.value = this.props.data.title;
     this.descriptionRef.value = this.props.data.description;
+    this.peopleRef.value = this.props.data.people;
+    this.budgetRef.value = this.props.data.budget.toString();
+    this.durationRef.value = this.props.data.duration.toString();
+    this.predecessorRef.value = this.props.data.predecessor;
     this.setState({ isEditMode: false });
   }
 
@@ -101,6 +119,13 @@ export class TrainingItem extends React.Component<IProps, {}> {
                         defaultValue={this.props.data.title} readOnly={!this.state.isEditMode}
                       />
                     </p>
+
+                    <p className="card-header-title">
+                        <input ref={this.initPeopleRef} type="text"
+                            className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                            defaultValue={this.props.data.people} readOnly={!this.state.isEditMode}
+                        />
+                    </p>
                   </header>
 
                   <section className="card-content">
@@ -111,6 +136,24 @@ export class TrainingItem extends React.Component<IProps, {}> {
                       />
                     </p>
 		
+                    <p className="card-header-title">
+                        Duration(days): <input ref={this.initDurationRef} type="number"
+                            className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                            defaultValue={this.props.data.duration} readOnly={!this.state.isEditMode}
+                        />
+                    </p>
+                    <p className="card-header-title">
+                        Budget($): <input ref={this.initBudgetRef} type="number"
+                            className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                            defaultValue={this.props.data.budget} readOnly={!this.state.isEditMode}
+                        />
+                    </p>
+                    <p className="card-header-title">
+                        Predecessor: <input ref={this.initPredecessorRef} type="text"
+                            className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
+                            defaultValue={this.props.data.predecessor} readOnly={!this.state.isEditMode}
+                        />
+                    </p>
                 
                      
                      {(()=> { 
@@ -157,9 +200,7 @@ export class TrainingItem extends React.Component<IProps, {}> {
                             );
                         }
                       })()}
-                        
-                      
-                   
+                          
                   </section>
                 </div>
               </div>
@@ -175,14 +216,18 @@ export class TrainingItem extends React.Component<IProps, {}> {
 
 
 // Update Card
-function updateCard(uid: string, title: string, description: string) {
+function updateCard(uid: string, title: string, description: string, people: string, budget: number, duration: number, predecessor: string) {
 
     console.log("### Update Card ###");
 
     const postData = querystring.stringify({
         'uid': uid,
         'title': title,
-        'description': description
+        'description': description,
+        'people': people,
+        'budget': budget,
+        'duration': duration,
+        'predecessor': predecessor
 	});
      
     const options = {

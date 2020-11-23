@@ -42,9 +42,8 @@ class App extends React.Component<{}, {}> {
         this.forceUpdate();
     }
 
-    handleAdd = (title: string, description: string) => {
-        //this.state.trainingStore.addItem("Xxx", title, description, 1);
-        createCard(title, description, 1);
+    handleAdd = (title: string, description: string, people: string, budget: number, duration: number, predecessor: string) => {
+        createCard(title, description, 1, people, budget, duration, predecessor);
         //this.forceUpdate();
     }
 
@@ -80,7 +79,6 @@ class App extends React.Component<{}, {}> {
     // Render
     render() {
         return (
-
             <div className="App">
 
                 <div className="menu">
@@ -95,30 +93,39 @@ class App extends React.Component<{}, {}> {
                 {(()=> {
                     if(layoutStatus == 0) {
 
-                    return (
-                        <div className="">
+                        return (
+                            <div className="">
 
-                        <div className="phase-row">
-                            <div className="phase-column-to-do"><p>TO DO</p></div>
-                            <div className="phase-column-in-progress"><p>IN PROGRESS</p></div>
-                            <div className="phase-column-done"><p>DONE</p></div>
-                        </div>
-                        <div className="phase-row-card">
-                            <div className="phase-column-card-to-do">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                                <div className="phase-row">
+                                    <div className="phase-column-to-do">
+                                        <p>TO DO</p>
+                                        <div className="phase-row-card">
+                                            <div className="phase-column-card-to-do">                        
+                                                <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                                            </div>
+                                        </div>                       
+                                    </div>
+
+                                    <div className="phase-column-in-progress">
+                                        <p>IN PROGRESS</p>
+                                        <div className="phase-row-card">
+                                            <div className="phase-column-card-in-progress">
+                                                <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                                            </div>
+                                        </div>                   
+                                    </div>
+                            
+                                    <div className="phase-column-done">
+                                        <p>DONE</p>                         
+                                        <div className="phase-row-card">                      
+                                            <div className="phase-column-card-done">
+                                                <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                                            </div>
+                                        </div>                      
+                                    </div>
+                                </div>          
                             </div>
-
-                            <div className="phase-column-card-in-progress">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
-                            </div>
-
-                            <div className="phase-column-card-done">
-                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
-                            </div>
-
-                        </div>
-                        </div>
-                    );
+                        );
                     }
                 })()}
 
@@ -167,7 +174,6 @@ function readCards() {
 
     console.log("### Read Cards ###");
 
-
     const options = {
      hostname: hostname,
      port: port,
@@ -188,6 +194,9 @@ function readCards() {
 
             // Add Card to Store
             addStore();
+
+                console.log(cards)
+
             app.forceUpdate();
         });
 	});
@@ -205,19 +214,23 @@ function addStore() {
     console.log("### Add to Store ###");
 
     for(const i in cards) {
-        initialState.push(new TrainingModel(cards[i]["_id"], cards[i]["title"], cards[i]["description"], cards[i]["phaseStatus"]));
+        initialState.push(new TrainingModel(cards[i]["_id"], cards[i]["title"], cards[i]["description"], cards[i]["phaseStatus"], cards[i]["people"], cards[i]["budget"], cards[i]["duration"], cards[i]["predecessor"] ));
     }
 }
 
 // Create Card
-function createCard(title: string, description: string, phaseStatus: number) {
+function createCard(title: string, description: string, phaseStatus: number, people: string, budget: number, duration: number, predecessor: string) {
 
     console.log("### Create Card ###");
 
     const postData = querystring.stringify({
         'title': title,
         'description': description,
-        'phaseStatus': phaseStatus
+        'phaseStatus': phaseStatus,
+        'people': people,
+        'budget': budget,
+        'duration': duration,
+        'predecessor': predecessor
 	});
      
     const options = {
@@ -243,7 +256,7 @@ function createCard(title: string, description: string, phaseStatus: number) {
         res.on('end', () => {
 
         let jsonData = JSON.parse(data);
-            app.state.trainingStore.addItem(jsonData["_id"], jsonData["title"], jsonData["description"], 1);
+            app.state.trainingStore.addItem(jsonData["_id"], jsonData["title"], jsonData["description"], 1, jsonData["people"], jsonData["budget"], jsonData["duration"], jsonData["predecessor"]);
             app.forceUpdate();
 		});
 	});
