@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/joint.min.css" />
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/template.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/lodash.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/backbone.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/joint.js" type="text/javascript" charset="utf-8"></script>
+
+		<style>
+			.clear {
+				clear: both;
+			}
+			
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.box {
+				width: 100%;
+				height: 100%;
+			}
+			
+			.phaseStatus {
+				float: left;
+				border-right: 2px solid #000000;
+				width: 200px;
+				height: 800px;
+				position: relative;
+			}
+			
+			.phaseStatusTop {
+				text-align: center;
+				border-bottom: 2px solid #000000;
+				font-size: 20px;
+			}
+			
+			.phaseStatusnr {
+				text-align: center;
+				opacity: 0;
+			}
+			
+			.phaseStatusnr a {
+				width: 100px;
+				height: 60px;
+				display: inline-block;
+				text-align: center;
+				line-height: 60px;
+				text-decoration: none;
+				background: cornflowerblue;
+				color: #000000;
+				margin-top: 20px;
+				font-size: 20px;
+				border-radius: 10px;
+			}
+			
+			#paper {
+				position: absolute;
+				top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box"></div>
+		<div id="paper"></div>
+		<script type="text/javascript">
+
+			
+			var graph = new joint.dia.Graph;
+
+			var paper = new joint.dia.Paper({
+				el: $('#paper'),
+				width: 20000,
+				height: 20000,
+				gridSize: 1,
+				model: graph
+			});
+			//定义模块形状
+			function state(x, y, label, a, b) {
+				var cell = new joint.shapes.basic.Rect({
+					position: {
+						x: x,
+						y: y
+					}, //坐标
+					size: {
+						width: 100,
+						height: 50
+					}, //宽高
+					attrs: {
+						rect: {
+							fill: 'rgb(119, 177, 227)',
+							rx: 5,
+							ry: 5,
+							'stroke-width': 0
+						},
+						text: {
+							text: label,
+							'ref-x': .5,
+							'ref-y': .5,
+							fill: '#fff'
+						},
+					}
+					//rect为方形,circle为圆形，还有stroke：边框颜色
+				});
+				graph.addCell(cell);
+				$(a).click(function() {
+					window.open(b);
+				});
+				cell.toBack();
+				return cell;
+			};
+
+			function link(source, target,label, vertices){
+				var cell = new joint.shapes.fsa.Arrow({
+					source: {
+						id: source.id
+					},
+					target: {
+						id: target.id
+					},
+					labels: [{
+						position: 0.5,
+						attrs: {
+							text: {
+								text: label || '',
+								'font-weight': 'bold'
+							}
+						}
+					}],
+					router: {
+						name: 'orthogonal'
+					},
+					connector: {
+						name: 'jumpover'
+					},
+					vertices: vertices || [],
+					attrs: ({
+
+						'.marker-target': {
+							fill: 'red',
+							d: 'M 10 0 L 0 5 L 10 10 z'
+						}
+					})
+				});
+				graph.addCell(cell);
+
+				cell.toBack()
+
+				return cell;
+			}
+			paper.$el.css('pointer-events', 'none')
+				</script>
+				<script>
+					var namelist=["TO DO","DONE","IN PROGRESS"]
+					$.ajax(
+							{
+								url:"http://localhost:9000/db/read/cards",
+								method:'get',
+								success: function(data){
+									console.log(data)
+									var Item=data
+									var data1=[]
+									var data2=[]
+									var data3=[]
+
+									for(var i=0; i<Item.length;i++){
+										if (Item[i].phaseStatus==1) data1.push(Item[i])
+										else if (Item[i].phaseStatus==3) {data2.push(Item[i])}
+										else  {data3.push(Item[i])}
+									}
+									var Items=[data1,data2,data3]
+									console.log(Items)
+									var html = ""
+									j=1
+									for(var i = 0; i <Items.length; i++) {
+										var html2 = ""
+										html += "<div class='phaseStatus''><div class='phaseStatusTop'><p>" + namelist[i] + "</p></div>"
+										for(var o = 0; o < Items[i].length; o++) {
+											console.log(Items[i][o].title)
+											Items[i][o]._id=j
+											html2 += "<div class='phaseStatusnr'><a target='_blank' href='' id=" +j + " title=" + Items[i][o].title + ">" + Items[i][o].title + "</a></div>"
+											j=j+1
+										}
+										html += html2 + "</div>"
+									}
+									$(".box").html(html)
+									var num = 100 / Items.length - 1 + '%'
+									var arraylist = [];
+									$(".phaseStatus").css("width", num);
+									for(var i = 0; i <Items.length; i++) {
+										for(var o = 0; o < Items[i].length; o++) {
+											var id2 = Items[i][o]._id;
+											var name2 = Items[i][o].title;
+											var y2 = $("#" + id2).offset().top;
+											var x2 = $("#" +id2).offset().left;
+											var arrValue2 = arraylist[id2];
+											if(arrValue2 == undefined) {
+												arraylist[id2] = state(x2, y2, name2);
+											}
+											var pre=Items[i][o].predecessor
+											if(pre!=""&&pre!=null&&pre!=undefined) {
+												pre_list=pre.trim().split(",")
+												console.log(pre_list[0])
+												for(var d=0;d<pre_list.length;d++){
+													// console.log(pre_list[d])
+													for(var n = 0; n <Items.length; n++) {
+														for(var m= 0; m < Items[n].length; m++) {
+															if (Items[n][m].title==pre_list[d]){
+																// var id3 = Items[n][m]._id;
+																// console.log(id3)
+																// console.log(id2)
+																var id3 = Items[n][m]._id;
+																var name3 =Items[n][m].title;
+																var y3 = $("#" + id3).offset().top;
+																var x3 = $("#" + id3).offset().left;
+
+																var arrValue3 = arraylist[id3];
+																if(arrValue3 == undefined) {
+																	arraylist[id3] = state(x3, y3, name3);
+																}
+
+																link(arraylist[id3], arraylist[id2]);
+																// link(id3, id2)
+																console.log("d")
+															}
+
+														}
+													}
+												}
+
+												// $.each(iItems[i].Childs, function(index, item3) {
+												// 	var id3 = item3.Id;
+												// 	var name3 = item3.Name;
+												// 	var y3 = $("#" + id3).offset().top;
+												// 	var x3 = $("#" + id3).offset().left;
+												//
+												// 	var arrValue3 = arraylist[id3];
+												// 	if(arrValue3 == undefined) {
+												// 		arraylist[id3] = state(x3, y3, name3);
+												// 	}
+												//
+												// 	link(arraylist[id2], arraylist[id3]);
+												// })
+											} else {
+												//						state(x2, y2, name2);
+											}
+
+
+										}
+									}
+								},
+								error:function(err){
+									alert(err);
+								}
+							});
+		</script>
+	</body>
+
+</html>
