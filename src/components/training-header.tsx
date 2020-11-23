@@ -26,7 +26,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
   @observable predecessor: string = '';
   @observable modalIsActive: boolean = false;
   @computed get addButtonIsDisabled() {
-    return this.title === '' || this.description === '';
+    return this.title === '' || this.description === '' || this.people === '' || this.predecessor === '' || this.budget === 0 || this.duration === 0;
   };
   
   handleAdd = () => {
@@ -91,7 +91,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
           <div className="modal-background" onClick={this.toggleModal}></div>
           <div className="modal-card">
             <header className="modal-card-head">
-              <p className="modal-card-title">Modal title</p>
+              <p className="modal-card-title">Project Management Tool</p>
             </header>
             <section className="modal-card-body">
               <p className="control">
