@@ -215,3 +215,34 @@ h1 {
         outline: none !important;
         box-shadow: none;
     }
+
+.menu-team-schedule {
+    position: fixed;
+    bottom: 0px;
+    right: 0;
+    width: 130px;
+    background-color: #1FC8D8;
+    color: #FFF;
+    font-weight: bold;
+    border: 0;
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 100;
+}
+
+    .menu-team-schedule:hover {
+        background-color: #199fae;
+        border: 0;
+    }
+
+    .menu-team-schedule:focus, .menu-team-schedule:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+
+.notice {
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}

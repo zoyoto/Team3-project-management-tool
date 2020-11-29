@@ -82,18 +82,23 @@ class App extends React.Component<{}, {}> {
         this.forceUpdate();
     }
 
-    handleMenuGanttChart = () => {
+    handleMenuJoint = () => {
         layoutStatus = 4;
         this.forceUpdate();
     }
 
-    handleMenuJoint = () => {
+
+    handleMenuGanttChart = () => {
         layoutStatus = 5;
         this.forceUpdate();
     }
 
-    
+    handleMenuSchedule = () => {
+        layoutStatus = 6;
+        this.forceUpdate();
+    }
 
+ 
     // Render
     render() {
    
@@ -110,6 +115,7 @@ class App extends React.Component<{}, {}> {
 
                 <button className="menu-gantt-chart" onClick={this.handleMenuGanttChart}>Gantt Chart</button> 
                 <button className="menu-network-chart" onClick={this.handleMenuJoint}>Network Chart</button> 
+                <button className="menu-team-schedule" onClick={this.handleMenuSchedule}>Team Schedule</button> 
 
                 {(()=> {
                     if(layoutStatus <= 3) {
@@ -198,31 +204,70 @@ class App extends React.Component<{}, {}> {
 
                 {(()=> {
                     if(layoutStatus == 4) {
-                        return (
-                            <div className="GanttChart">
-                            <p className="phase-header">GANTT CHART</p>
-                            <GanttChart />
-                            </div>
-                        );
+                        if(cards.length > 0) {
+                            return (
+                                <div className="NetworkChart">
+                                    <p className="phase-header">NETWORK CHART</p>
+                           
+                                    <Iframe url="http://localhost:3000/joint.html" 
+                                        position="absolute"
+                                        width="100%"
+                                        id="joint"
+                                        className="Joint"
+                                        height="100%"
+                                        display="block"
+                                        scrolling ="no" />
+                                 </div>
+                            );      
+                        } else {
+                            return (
+                                <div className="NetworkChart">
+                                    <p className="phase-header">NETWORK CHART</p>
+                                    <br /><br /><br />
+                                    <p className="notice">No Task</p>
+                                </div>
+                            );
+                        }
                     }
                 })()}
 
                 {(()=> {
                     if(layoutStatus == 5) {
+                        if(cards.length > 0) {
+                            return (
+                                <div className="GanttChart">
+                                    <p className="phase-header">GANTT CHART</p>
+                                    <GanttChart />
+                                </div>
+                            );
+                        } else {
+                            return (
+                                <div className="GanttChart">
+                                    <p className="phase-header">GANTT CHART</p>
+                                    <br /><br /><br />
+                                    <p className="notice">No Task</p>
+                                </div>
+                            );
+                        }
+                    }
+                })()}
+
+                {(()=> {
+                    if(layoutStatus == 6) {
                         return (
-                            <div className="NetworkChart">
-                                <p className="phase-header">NETWORK CHART</p>
+                            <div className="TeamSchedule">
+                                <p className="phase-header">TEAM TIME SCHEDULE</p>
                            
-                                <Iframe url="http://localhost:3000/Joint.html" 
+                                <Iframe url="http://localhost:3000/wait.html" 
                                     position="absolute"
                                     width="100%"
                                     id="joint"
-                                    className="Joint"
+                                    className="Schedule"
                                     height="100%"
                                     display="block"
                                     scrolling ="no" />
-                             </div>
-                        );                   
+                                </div>
+                        );                       
                     }
                 })()}
 
@@ -256,9 +301,11 @@ function readCards() {
             cards = JSON.parse(data);
 
             // Add Card to Store
-            addStore();
 
-                console.log(cards)
+            while(initialState.length > 0) {
+                initialState.pop();
+            }
+            addStore();
 
             app.forceUpdate();
         });
@@ -318,8 +365,9 @@ function createCard(title: string, description: string, phaseStatus: number, peo
 
         res.on('end', () => {
 
-        let jsonData = JSON.parse(data);
+            let jsonData = JSON.parse(data);
             app.state.trainingStore.addItem(jsonData["_id"], jsonData["title"], jsonData["description"], 1, jsonData["people"], jsonData["budget"], jsonData["duration"], jsonData["predecessor"]);
+            readCards();
             app.forceUpdate();
 		});
 	});
@@ -364,6 +412,7 @@ function deleteCard(uid: string) {
 
         let jsonData = JSON.parse(data);
             app.state.trainingStore.removeItem(uid);
+            readCards();
             app.forceUpdate(); 
 		});
 	});

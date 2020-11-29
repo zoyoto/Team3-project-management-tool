@@ -26,7 +26,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
   @observable predecessor: string = '';
   @observable modalIsActive: boolean = false;
   @computed get addButtonIsDisabled() {
-    return this.title === '' || this.description === '' || this.people === '' || this.predecessor === '' || this.budget === 0 || this.duration === 0;
+    return this.title === '' || this.description === '' || this.people === '' || this.duration === 0;
   };
   
   handleAdd = () => {
@@ -95,7 +95,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
             </header>
             <section className="modal-card-body">
               <p className="control">
-                <label htmlFor="title" className="label">Title</label>
+                <label htmlFor="title" className="label">Task Title</label>
                 <input id="title" className="input" type="text"
                   value={this.title} onChange={this.handleChangeTitle} />			
               </p>

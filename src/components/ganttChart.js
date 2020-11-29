@@ -49,23 +49,21 @@ export function  ganttLayOut(ctx, options) {
 function addInformation() {
     let items = [{}];
     taskStatus = [];
+    information = [];
+
     for(const i in cards) {
 
-        let p = cards[i]["predecessor"];
-        if(p == "") {
-            p = null;
-        }
-       information[i] = {Task: cards[i]["title"], Duration: Number(cards[i]["duration"]), Predecessor: p};
+       information[i] = {Task: cards[i]["title"], Duration: Number(cards[i]["duration"]), Predecessor: cards[i]["predecessor"]};
 
        taskStatus.push(Number(cards[i]["phaseStatus"]));
     }
 
-            console.log("Xxx " + taskStatus);
 
     drawChart();
  }
 
 function drawChart() {
+
     let tableLength = 500;
     let tableWidth = 300;
     let rowNum = information.length + 1;

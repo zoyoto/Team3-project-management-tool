@@ -114,14 +114,14 @@ export class TrainingItem extends React.Component<IProps, {}> {
                 <div className="card is-fullwidth">
                   <header className="card-header">
                     <p className="card-header-title">
-                      <input ref={this.initTitleRef} type="text"
+                      <input placeholder="Task Title" ref={this.initTitleRef} type="text"
                         className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
                         defaultValue={this.props.data.title} readOnly={!this.state.isEditMode}
                       />
                     </p>
 
                     <p className="card-header-title">
-                        <input ref={this.initPeopleRef} type="text"
+                        <input placeholder="People" ref={this.initPeopleRef} type="text"
                             className={'input is-large editable ' + (this.state.isEditMode ? '' : 'readonly') }
                             defaultValue={this.props.data.people} readOnly={!this.state.isEditMode}
                         />
