@@ -3,9 +3,10 @@
     "",
     "\\api",
     "\\public",
+    "\\public\\css",
     "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\public\\index.html",
+  "SelectedNode": "\\public\\css\\joint.css",
   "PreviewInSolutionExplorer": false
 }

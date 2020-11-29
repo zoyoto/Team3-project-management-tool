@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import Iframe from 'react-iframe'
+
 import GanttChart from "./components/gantt-chart";
 
 
@@ -26,6 +28,7 @@ const port = 9000;
 let layoutStatus = 0;
 let cards;
 
+
 interface IState {
     trainingStore: TrainingStore;
 }
@@ -39,7 +42,7 @@ class App extends React.Component<{}, {}> {
 	}
 
     state: IState = {
-        trainingStore: new TrainingStore(initialState)
+        trainingStore: new TrainingStore(initialState),
     };
 
     handleForceUpdate = () => {
@@ -84,6 +87,13 @@ class App extends React.Component<{}, {}> {
         this.forceUpdate();
     }
 
+    handleMenuJoint = () => {
+        layoutStatus = 5;
+        this.forceUpdate();
+    }
+
+    
+
     // Render
     render() {
    
@@ -99,9 +109,16 @@ class App extends React.Component<{}, {}> {
                 </div>
 
                 <button className="menu-gantt-chart" onClick={this.handleMenuGanttChart}>Gantt Chart</button> 
+                <button className="menu-network-chart" onClick={this.handleMenuJoint}>Network Chart</button> 
 
+                {(()=> {
+                    if(layoutStatus <= 3) {
+                        return (
+                            <TrainingHeader onAdd={this.handleAdd} />
+                        );
+                    }               
+                })()}
 
-                <TrainingHeader onAdd={this.handleAdd} />
 
                 {(()=> {
                     if(layoutStatus == 0) {
@@ -141,6 +158,7 @@ class App extends React.Component<{}, {}> {
                         );
                     }
                 })()}
+
 
                 {(()=> {
                     if(layoutStatus == 1) {
@@ -182,10 +200,29 @@ class App extends React.Component<{}, {}> {
                     if(layoutStatus == 4) {
                         return (
                             <div className="GanttChart">
-                            <p className="phase-header">Gantt Chart</p>
+                            <p className="phase-header">GANTT CHART</p>
                             <GanttChart />
                             </div>
                         );
+                    }
+                })()}
+
+                {(()=> {
+                    if(layoutStatus == 5) {
+                        return (
+                            <div className="NetworkChart">
+                                <p className="phase-header">NETWORK CHART</p>
+                           
+                                <Iframe url="http://localhost:3000/Joint.html" 
+                                    position="absolute"
+                                    width="100%"
+                                    id="joint"
+                                    className="Joint"
+                                    height="100%"
+                                    display="block"
+                                    scrolling ="no" />
+                             </div>
+                        );                   
                     }
                 })()}
 
@@ -338,6 +375,7 @@ function deleteCard(uid: string) {
     req.write(postData);
     req.end();
 }
+
 
 readCards();
 

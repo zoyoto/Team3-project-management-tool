@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 	<head>
@@ -36,12 +36,16 @@
 				height: 800px;
 				position: relative;
 			}
-			
-			.phaseStatusTop {
-				text-align: center;
-				border-bottom: 2px solid #000000;
-				font-size: 20px;
-			}
+
+            .phaseStatusTop {
+                text-align: center;
+                border-bottom: 2px solid #000000;
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center;
+                color: #69707A;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            }
 			
 			.phaseStatusnr {
 				text-align: center;
@@ -160,7 +164,7 @@
 			paper.$el.css('pointer-events', 'none')
 				</script>
 				<script>
-					var namelist=["TO DO","DONE","IN PROGRESS"]
+					var namelist=["TO DO","IN PROGRESS","DONE"]
 					$.ajax(
 							{
 								url:"http://localhost:9000/db/read/cards",
@@ -174,7 +178,7 @@
 
 									for(var i=0; i<Item.length;i++){
 										if (Item[i].phaseStatus==1) data1.push(Item[i])
-										else if (Item[i].phaseStatus==3) {data2.push(Item[i])}
+										else if (Item[i].phaseStatus==2) {data2.push(Item[i])}
 										else  {data3.push(Item[i])}
 									}
 									var Items=[data1,data2,data3]
@@ -187,7 +191,7 @@
 										for(var o = 0; o < Items[i].length; o++) {
 											console.log(Items[i][o].title)
 											Items[i][o]._id=j
-											html2 += "<div class='phaseStatusnr'><a target='_blank' href='' id=" +j + " title=" + Items[i][o].title + ">" + Items[i][o].title + "</a></div>"
+											html2 += "<div class='phaseStatusnr'><a target='_blank' id=" +j + " title=" + Items[i][o].title + ">" + Items[i][o].title + "</a></div>"
 											j=j+1
 										}
 										html += html2 + "</div>"
@@ -226,6 +230,7 @@
 																var arrValue3 = arraylist[id3];
 																if(arrValue3 == undefined) {
 																	arraylist[id3] = state(x3, y3, name3);
+
 																}
 
 																link(arraylist[id3], arraylist[id2]);

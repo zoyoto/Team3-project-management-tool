@@ -172,11 +172,13 @@ h1 {
     right: 0;
     width: 130px;
     background-color: #1FC8D8;
-    color: blueviolet;
+    color: #FFF;
+    font-weight: bold;
     border: 0;
     height: 32px;
     padding-left: 10px;
     padding-right: 10px;
+    z-index: 100;
 }
 
     .menu-gantt-chart:hover {
@@ -189,3 +191,27 @@ h1 {
         box-shadow: none;
     }
 
+.menu-network-chart {
+    position: fixed;
+    bottom: 60px;
+    right: 0;
+    width: 130px;
+    background-color: #1FC8D8;
+    color: #FFF;
+    font-weight: bold;
+    border: 0;
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+    z-index: 100;
+}
+
+    .menu-network-chart:hover {
+        background-color: #199fae;
+        border: 0;
+    }
+
+    .menu-network-chart:focus, .menu-network-chart:active {
+        outline: none !important;
+        box-shadow: none;
+    }
