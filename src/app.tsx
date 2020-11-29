@@ -1,6 +1,9 @@
-
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
+import GanttChart from "./components/gantt-chart";
+
+
 import logo from './logo.svg';
 import './app.css';
 
@@ -26,6 +29,7 @@ let cards;
 interface IState {
     trainingStore: TrainingStore;
 }
+
 
 class App extends React.Component<{}, {}> {
 
@@ -75,19 +79,28 @@ class App extends React.Component<{}, {}> {
         this.forceUpdate();
     }
 
+    handleMenuGanttChart = () => {
+        layoutStatus = 4;
+        this.forceUpdate();
+    }
 
     // Render
     render() {
+   
         return (
             <div className="App">
 
                 <div className="menu">
-                    <button onClick={this.handleMenuHome}>Home</button>
-                    <button onClick={this.handleMenuToDo}>To Do</button>
-                    <button onClick={this.handleMenuInProgress}>In Progress</button>
-                    <button onClick={this.handleMenuDone}>Done</button>
+                    <button className="button is-primary" onClick={this.handleMenuHome}>Home</button>
+                    <button className="button is-danger" onClick={this.handleMenuToDo}>To Do</button>
+                    <button className="button is-warning" onClick={this.handleMenuInProgress}>In Progress</button>
+                    <button className="button is-success" onClick={this.handleMenuDone}>Done</button>
                     <br /><br />
                 </div>
+
+                <button className="menu-gantt-chart" onClick={this.handleMenuGanttChart}>Gantt Chart</button> 
+
+
                 <TrainingHeader onAdd={this.handleAdd} />
 
                 {(()=> {
@@ -131,39 +144,52 @@ class App extends React.Component<{}, {}> {
 
                 {(()=> {
                     if(layoutStatus == 1) {
-                    return (
-                        <div className="ToDo">
-                        <p className="phase-header">TO DO</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
-                        <br /><br />
-                        </div>
-                    );
+                        return (
+                            <div className="ToDo">
+                            <p className="phase-header">TO DO</p>
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={1} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                            <br /><br />
+                            </div>
+                        );
                     }
                 })()}
 		
                 {(()=> {
                     if(layoutStatus == 2) {
-                    return (
-                        <div className="InProgress">
-                        <p className="phase-header">IN PROGRESS</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
-                        <br /><br />
-                        </div>
-                    );
+                        return (
+                            <div className="InProgress">
+                            <p className="phase-header">IN PROGRESS</p>
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={2} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                            <br /><br />
+                            </div>
+                        );
                     }
                 })()}
 		
                 {(()=> {		
-                    if(layoutStatus == 3 ) {
-                    return (
-                        <div className="Done">
-                        <p className="phase-header">DONE</p>
-                        <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
-                        <br /><br />
-                        </div>
-                    )
-                    };
+                    if(layoutStatus == 3) {
+                        return (
+                            <div className="Done">
+                            <p className="phase-header">DONE</p>
+                            <TrainingList store={this.state.trainingStore} layoutStatus={layoutStatus} phaseStatus={3} onRemove={this.handleRemove} onForceUpdate={this.handleForceUpdate} />
+                            <br /><br />
+                            </div>
+                        );
+                    }
                 })()}
+
+                {(()=> {
+                    if(layoutStatus == 4) {
+                        return (
+                            <div className="GanttChart">
+                            <p className="phase-header">Gantt Chart</p>
+                            <GanttChart />
+                            </div>
+                        );
+                    }
+                })()}
+
+                
             </div>
 		);
 	}
@@ -312,7 +338,6 @@ function deleteCard(uid: string) {
     req.write(postData);
     req.end();
 }
-
 
 readCards();
 

@@ -161,7 +161,7 @@ export class TrainingItem extends React.Component<IProps, {}> {
                             return (
                                 <footer className="card-footer">
                                     <div className="card-footer-item">
-                                        <a className="button is-primary is-fullwidth" onClick={this.state.isEditMode ? this.handleSave : this.handleEdit} >{this.state.isEditMode ? 'Save' : 'Edit'}</a>
+                                        <a className="button is-info is-fullwidth" onClick={this.state.isEditMode ? this.handleSave : this.handleEdit} >{this.state.isEditMode ? 'Save' : 'Edit'}</a>
                                     </div>
                             
                                     <div className="card-footer-item">

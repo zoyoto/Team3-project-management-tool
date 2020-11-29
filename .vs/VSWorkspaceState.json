@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\api",
-    "\\api\\public\\images",
-    "\\api\\public\\stylesheets",
+    "\\public",
     "\\src",
     "\\src\\components"
   ],
-  "SelectedNode": "\\src\\react-app-env.d.ts",
+  "SelectedNode": "\\public\\index.html",
   "PreviewInSolutionExplorer": false
 }

@@ -30,10 +30,10 @@
 
 ##### 3. Run development server and start developing
 	Backend Server:
-    <project>/api $ npm start
+    <project root>/api $ npm start
 	
 	Frontend Server
-	<project> $ npm start
+	<project root> $ npm start
 
 ### NPM commands
 - `npm start` - run local development server with hot-reloader at localhost:3000

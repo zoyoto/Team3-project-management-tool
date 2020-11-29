@@ -57,7 +57,8 @@ html {
     .menu button {
         width: 200px;
         height: 50px;
-        background-color: grey;
+        font-size: 18px;
+        font-weight: bolder;
     }
 
 .ToDo {
@@ -156,4 +157,35 @@ h1 {
     padding: 10px;
 }
 
+.card-content .card-header-title {
+    font-size: 16px;
+}
+
+.card-content .card-header-title Input{
+    height: 26px;
+    font-size: 16px;
+}
+
+.menu-gantt-chart {
+    position: fixed;
+    bottom: 30px;
+    right: 0;
+    width: 130px;
+    background-color: #1FC8D8;
+    color: blueviolet;
+    border: 0;
+    height: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+    .menu-gantt-chart:hover {
+        background-color: #199fae;
+        border: 0;
+    }
+
+    .menu-gantt-chart:focus, .menu-gantt-chart:active {
+        outline: none !important;
+        box-shadow: none;
+    }
 

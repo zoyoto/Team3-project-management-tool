@@ -83,7 +83,7 @@ export class TrainingHeader extends React.Component<IProps, IState> {
       <div className="">
 		
         <p className="control">
-          <button type="button" className="button is-primary is-large is-fullwidth"
+          <button type="button" className="button is-info is-large is-fullwidth"
             onClick={this.toggleModal}>Add New</button>
         </p>
 
@@ -113,13 +113,13 @@ export class TrainingHeader extends React.Component<IProps, IState> {
               </p>
 
               <p className="control">
-                <label htmlFor="duration" className="label">Duration</label>
+                <label htmlFor="duration" className="label">Duration (days)</label>
                 <input id="duration" className="input" type="number"
                   value={this.duration} onChange={this.handleChangeDuration} />
               </p>
 
               <p className="control">
-                <label htmlFor="budget" className="label">Budget</label>
+                <label htmlFor="budget" className="label">Budget ($)</label>
                 <input id="budget" className="input" type="number"
                   value={this.budget} onChange={this.handleChangeBudget} />
               </p>
