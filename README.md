@@ -29,10 +29,6 @@
     npm install
 
 ##### 3. Run development server and start developing
-	Backend Server:
-    <project root>/api $ npm start
-	
-	Frontend Server
 	<project root> $ npm start
 
 ### NPM commands
