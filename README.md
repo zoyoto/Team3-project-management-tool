@@ -23,7 +23,7 @@
 ### Installation
 
 ##### 1. Clone repo
-    git clone https://github.com/piotrwitek/training-management-tool.git
+    git clone https://github.com/zoyoto/Team3-project-management-tool.git
 
 ##### 2. Install all dependencies
     npm install
