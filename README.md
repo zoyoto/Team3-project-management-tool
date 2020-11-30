@@ -1,6 +1,6 @@
-# Training Management Tool
+# Project Management Tool
 ##### Dev Workshop Project
-### Demo: http://piotrwitek.github.io/training-management-tool/
+### Original Demo: http://piotrwitek.github.io/training-management-tool/
 
 ### Features:
 - using ES2016 (generators/async/await) then transpiled to ES5 cross-browser compatible code
