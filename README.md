@@ -29,7 +29,7 @@
     npm install
 
 ##### 3. Run development server and start developing
-	<project root> $ npm start
+	npm start
 
 ### NPM commands
 - `npm start` - run local development server with hot-reloader at localhost:3000
