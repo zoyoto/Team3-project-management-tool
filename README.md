@@ -16,7 +16,7 @@
 - TypeScript - v1.8.10
 - React - v15.1.0
 - MobX - v2.3.1 / mobx-react
-- JSPM (0.17.X) / SystemJS / systemjs-hot-reloader
+- Express - v4.17.1
 
 ---
 
